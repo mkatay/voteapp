@@ -8,17 +8,38 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { PointsSlider } from './PointsSlider';
 import { useState } from 'react';
+import { useContext } from 'react';
+import { UserContext } from '../UserContext';
+import {addPoints, check} from '../utils.js'
+import { useEffect } from 'react';
 
-export const PointsForm=({open,setOpen})=> {
-
+export const PointsForm=({open,setOpen,id})=> {
+const {user}=useContext(UserContext)
 const [points,setPoints]=useState(null)
+const [flag,setFlag]=useState(false)
 
+useEffect(() => {
+  async function fetchData() {
+    try {
+      const result = await check(user.uid, id);
+      setFlag(result);
+    } catch (error) {
+      console.error("Hiba történt az adatok lekérése során:", error);
+    }
+  }
+
+  fetchData();
+}, [user, id]);
+
+
+console.log(flag);
   const handleClose = () => {
     setOpen(false);
   };
   const handleSubmit=(e)=>{
     e.preventDefault
-    console.log(points);
+    //console.log(points,user.uid);
+    addPoints(id,points,user.uid)
     setOpen(false)
   }
 console.log('pont:',points);
@@ -34,12 +55,13 @@ console.log('pont:',points);
             <p>The perfect solution should looks like this:</p>
             <img className="img-thumbnail" src="Kajak-kenu.jpg" alt="minta" />
           </DialogContentText>
-          <PointsSlider setPoints={setPoints}/>
+         {flag ? <p>Ezt már értékelted!</p> :  <PointsSlider setPoints={setPoints}/>}
         </DialogContent>
-        <DialogActions>
+       <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Submit</Button>
+         {!flag &&  <Button onClick={handleSubmit}>Submit</Button>}
         </DialogActions>
+        
       </Dialog>
     </div>
   );

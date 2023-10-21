@@ -4,7 +4,7 @@ import { gitHubUserName } from "../utils";
 import { PointsForm } from "./PointsForm";
 
 
-export const MyCard = ({title,classmate,linkUrl}) => {
+export const MyCard = ({title,classmate,linkUrl,id}) => {
     const [open, setOpen] = React.useState(false);
     const handleClickOpen = () => {
         setOpen(true);
@@ -30,7 +30,7 @@ export const MyCard = ({title,classmate,linkUrl}) => {
       </CardBody>
       <CardFooter ><div className="d-flex justify-content-between"><span>Votes:</span><span>Points:</span> </div></CardFooter>
     </Card>
-    {open && <PointsForm open={open} setOpen={setOpen}/>}
+    {open && <PointsForm open={open} setOpen={setOpen} id={id}/>}
     </div>
   );
 };
