@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { onAuthStateChanged,signOut} from 'firebase/auth';
 import { auth } from './firebaseApp';
-import { useNavigate } from 'react-router-dom';
 import Cookies from "universal-cookie";
 const cookies = new Cookies(); //to set and get cookies from the browser
 

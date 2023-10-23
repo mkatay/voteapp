@@ -5,6 +5,7 @@ import { readLinks} from '../utils';
 import { MyAlert } from '../components/MyAlert';
 import { useForm } from 'react-hook-form';
 import {MyCard} from './MyCard';
+import { PointsProvider } from '../PointsContext';
 
 
 
@@ -13,6 +14,7 @@ const projects=['Kajak-kenu']
 
 export const Home = () => {
   const [links, setLinks] = useState(false);
+  const [changed,setChanged]=useState(0)
   
 const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onChange',});
 
@@ -22,7 +24,7 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
     e.target.reset(); // reset after form submit
   };
 
- 
+ console.log(changed);
   return (
     
     <div >
@@ -71,10 +73,12 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
       </Row>
     </Form>
     </div>
-    <div className="d-flex gap-2">
+    <div className="d-flex flex-wrap gap-2">
        {links && links.map(obj=>
       <div key={obj.id}>
-        <MyCard {...obj}/>
+        <PointsProvider id={obj.id}>
+          <MyCard {...obj} setChanged={setChanged} changed={changed}/>
+        </PointsProvider>
       </div>
       )}
     </div>

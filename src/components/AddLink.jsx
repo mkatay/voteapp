@@ -13,7 +13,9 @@ const projects=['Kajak-kenu']
 export const AddLink = () => {
   const [loading, setLoading] = useState(false);
   const [uploaded,setUploaded]=useState(false)
+  const [result,setResult]=useState(null)
 const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onChange',});
+
 
   const onSubmit =async (data, e) => {
     e.preventDefault()
@@ -21,7 +23,7 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
    
     //console.log(data)
     try {
-      addLink({...data,rate:[]})
+      setResult( await addLink({...data,rate:[]}))
       setUploaded(true)
     } catch (error) {
       console.error('Hiba a feltöltése közben', error);
@@ -88,7 +90,7 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
         </Col>
       </Row>
      
-      {uploaded && <MyAlert txt={'Sikeres feltöltés!'}/>}
+      {uploaded && <MyAlert txt={result? 'Sikeres feltöltés!': 'Ez a link már fel van töltve!'}/>}
     </Form>
     </div>
   )
