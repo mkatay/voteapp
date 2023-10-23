@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Result = () => {
   return (
-    <div>Result</div>
+    <div>Results summary....under construction</div>
   )
 }
 

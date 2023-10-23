@@ -28,9 +28,9 @@ export const Navbar = () => {
       },
     }}
   >
-    <MenuItem component={<Link to="/" />}>Projects</MenuItem>
-    <MenuItem component={<Link to="/add" />}>Add projects</MenuItem>
-    <MenuItem component={<Link to="/results" />}> Results</MenuItem>
+    <MenuItem component={<Link to="/" />} onClick={()=>setToggled(!toggled)}>Projects</MenuItem>
+    <MenuItem component={<Link to="/add" />} onClick={()=>setToggled(!toggled)}>Add projects</MenuItem>
+    <MenuItem component={<Link to="/results" />} onClick={()=>setToggled(!toggled)}> Results</MenuItem>
     <MenuItem>
       <span style={{fontSize:'0.6rem'}}>{user?.displayName}</span>
       <FaSignOutAlt onClick={()=>logoutUser()} title="logout"/>

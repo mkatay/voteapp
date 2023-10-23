@@ -13,14 +13,16 @@ const classes=['12A/3','12A/2','11A/1','11A/2']
 const projects=['Kajak-kenu']
 
 export const Home = () => {
-  const [links, setLinks] = useState(false);
+  const [links, setLinks] = useState(null);
   const [changed,setChanged]=useState(0)
+  const [hasSubmit,setHasSubmit]=useState(false)
   
 const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onChange',});
 
   const onSubmit =async (data, e) => {
     e.preventDefault()
     readLinks(data.classmate,data.title,setLinks)
+    setHasSubmit(true)
     e.target.reset(); // reset after form submit
   };
 
@@ -74,13 +76,15 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
     </Form>
     </div>
     <div className="d-flex flex-wrap gap-2">
-       {links && links.map(obj=>
+       {(hasSubmit && links && links.length>0) && links.map(obj=>
       <div key={obj.id}>
         <PointsProvider id={obj.id}>
           <MyCard {...obj} setChanged={setChanged} changed={changed}/>
         </PointsProvider>
       </div>
       )}
+      {(hasSubmit && links && links.length==0) && (<p className=' text-danger m-auto'>Nincsenek adatok a kért kategóriában!</p>)}
+
     </div>
    
     </div>

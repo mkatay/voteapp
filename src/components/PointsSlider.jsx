@@ -43,6 +43,8 @@ export const PointsSlider=({setPoints})=> {
             value={typeof value === 'number' ? value : 0}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
+            min={0}
+            max={10}
           />
         </Grid>
         <Grid item>
@@ -52,9 +54,9 @@ export const PointsSlider=({setPoints})=> {
             onChange={handleInputChange}
             onBlur={handleBlur}
             inputProps={{
-              step: 1,
+              step: 10,
               min: 0,
-              max: 100,
+              max: 10,
               type: 'number',
               'aria-labelledby': 'input-slider',
             }}
