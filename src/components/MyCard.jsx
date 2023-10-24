@@ -55,7 +55,7 @@ export const MyCard = ({title,classmate,linkUrl,id,changed,setChanged}) => {
         <span>Average:<b>{votes && Math.floor(points/votes)}</b></span>
       </div></CardFooter>
     </Card>
-    {open && <PointsForm open={open} setOpen={setOpen} id={id}/>}
+    {open && <PointsForm open={open} setOpen={setOpen} id={id} title={title}/>}
     </div>
   );
 };

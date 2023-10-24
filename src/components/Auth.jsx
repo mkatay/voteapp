@@ -18,6 +18,21 @@ export const Auth = ({ setIsAuth }) => {
       console.log(err);
     }
   };
+
+
+/*  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider(); // Use 'GoogleAuthProvider' directly
+    provider.setCustomParameters({ prompt: 'select_account' });
+    try {
+    await signInWithPopup(auth, provider); // Use 'provider' directly here
+      console.log(result); //egy nagy objektum, amiből szükségünk lesz a tokenre
+      cookies.set("auth-token", result.user.refreshToken);
+      setIsAuth(true);
+    } catch (error) {
+        console.log(error);
+    }
+    };*/
+
   return (
     <div className="auth bg-light">
       <h6 className="mt-2">Sign in with Google to continue</h6>

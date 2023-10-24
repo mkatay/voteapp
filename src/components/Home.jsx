@@ -10,7 +10,7 @@ import { PointsProvider } from '../PointsContext';
 
 
 const classes=['12A/3','12A/2','11A/1','11A/2']
-const projects=['Kajak-kenu']
+const projects=['Kajak-kenu','Ingyenes-tanfolyamok']
 
 export const Home = () => {
   const [links, setLinks] = useState(null);

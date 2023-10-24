@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 
 
 const classes=['12A/3','12A/2','11A/1','11A/2']
-const projects=['Kajak-kenu']
+const projects=['Kajak-kenu','Ingyenes-tanfolyamok']
 
 export const AddLink = () => {
   const [loading, setLoading] = useState(false);

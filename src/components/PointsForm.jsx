@@ -13,7 +13,7 @@ import { UserContext } from '../UserContext';
 import {addPoints, check} from '../utils.js'
 import { useEffect } from 'react';
 
-export const PointsForm=({open,setOpen,id})=> {
+export const PointsForm=({open,setOpen,id,title})=> {
 const {user}=useContext(UserContext)
 const [points,setPoints]=useState(null)
 const [flag,setFlag]=useState(false)
@@ -43,6 +43,7 @@ console.log(flag);
     setOpen(false)
   }
 console.log('pont:',points);
+console.log(title+"jpg");
   return (
     <div>
      {/*} <Button variant="outlined" onClick={handleClickOpen}>
@@ -53,7 +54,7 @@ console.log('pont:',points);
         <DialogContent>
           <DialogContentText>
             <p>The perfect solution should looks like this:</p>
-            <img className="img-thumbnail" src="Kajak-kenu.jpg" alt="minta" />
+            <img className="img-thumbnail" src={title+".jpg"} alt="minta" />
           </DialogContentText>
          {flag ? <p>Ezt már értékelted!</p> :  <PointsSlider setPoints={setPoints}/>}
         </DialogContent>
