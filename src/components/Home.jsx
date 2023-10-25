@@ -10,7 +10,7 @@ import { PointsProvider } from '../PointsContext';
 
 
 const classes=['12A/3','12A/2','11A/1','11A/2']
-const projects=['Kajak-kenu','Ingyenes-tanfolyamok']
+const projects=['Kajak-kenu','Ingyenes-tanfolyamok','Portfólió']
 
 export const Home = () => {
   const [links, setLinks] = useState(null);
@@ -75,7 +75,7 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
       </Row>
     </Form>
     </div>
-    <div className="d-flex flex-wrap gap-2">
+    <div className="d-flex flex-wrap gap-2 justify-content-center">
        {(hasSubmit && links && links.length>0) && links.map(obj=>
       <div key={obj.id}>
         <PointsProvider id={obj.id}>
