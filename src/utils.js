@@ -3,6 +3,11 @@ import {db} from "./firebaseApp";
 import {collection, addDoc,doc,deleteDoc,query,getDoc,arrayUnion,
   where,getDocs,serverTimestamp, updateDoc,orderBy,onSnapshot } from "firebase/firestore";
 
+
+  export const classes=['12A/3','12A/2','11A/1','11A/2']
+  export const projects=['Kajak-kenu','Ingyenes-tanfolyamok','Portfólió']
+  
+
 export const addLink =async (formData) => {
     console.log(formData.linkUrl);
     const collectionRef= collection(db, "links");
@@ -52,9 +57,18 @@ export const readPoints=async (projectId,setPoints,setVotes)=>{
   const docSnap = await getDoc(docRef);
   const arr={ ...docSnap.data()}
   console.log(arr);
-  const points=arr.rate.reduce((acc,obj)=>acc+obj.points,0)
-  const votes=arr.rate.length
+  const points=arr.rate.reduce((acc,obj)=>obj.points ? acc+obj.points : acc,0)
+  const votes=(arr.rate.filter(obj=>obj.points && obj.points>0)).length
   setPoints(points)
   setVotes(votes)
 
 }
+
+export const readProjectResults= (classmate,title,setResults) => {
+  const collectionRef = collection(db, "links");
+  const q = query(collectionRef,where('classmate','==',classmate),where('title','==',title))
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    setResults(snapshot.docs.map(doc => ({ linkUrl:doc.data().linkUrl,rate:doc.data().rate })));
+  });
+  return unsubscribe;
+};

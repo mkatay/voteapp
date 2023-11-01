@@ -1,17 +1,11 @@
 import React,{useState} from 'react'
 import {Form,Label,Row,Col,FormGroup} from 'reactstrap'
-import { Loader } from '../components/Loader';
-import { readLinks} from '../utils';
-import { MyAlert } from '../components/MyAlert';
 import { useForm } from 'react-hook-form';
-import {MyCard} from './MyCard';
-import { PointsProvider } from '../PointsContext';
-import {classes,projects} from '../utils'
+import {classes,projects, readProjectResults} from '../utils'
 
 
-export const Home = () => {
-  const [links, setLinks] = useState(null);
-  const [changed,setChanged]=useState(0)
+export const MyForm = ({setResults,hContent}) => {
+
   const [hasSubmit,setHasSubmit]=useState(false)
 
 
@@ -19,17 +13,16 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
 
   const onSubmit =async (data, e) => {
     e.preventDefault()
-    readLinks(data.classmate,data.title,setLinks)
+    readProjectResults(data.classmate,data.title,setResults)
     setHasSubmit(true)
     e.target.reset(); // reset after form submit
   };
 
- console.log(changed);
   return (
     
     <div >
       <div className='createLink   '>
-      <h3 className='text-center text-white'>Projects</h3>
+      <h3 className='text-center text-white'>{hContent}</h3>
       <Form onSubmit={handleSubmit(onSubmit)} className='border rounded p-3 bg-light'>
         <Row> 
           <Col md={6}>
@@ -67,23 +60,13 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
       </Row>
       <Row >
         <Col className='d-flex justify-content-center'>
-          <input type="submit" className='btn btn-primary' value="Show projects"/>
+          <input type="submit" className='btn btn-primary' value="Show"/>
         </Col>
        
       </Row>
     </Form>
     </div>
-    <div className="d-flex flex-wrap gap-2 justify-content-center">
-       {(hasSubmit && links && links.length>0) && links.map(obj=>
-      <div key={obj.id}>
-        <PointsProvider id={obj.id}>
-          <MyCard {...obj} setChanged={setChanged} changed={changed}/>
-        </PointsProvider>
-      </div>
-      )}
-      {(hasSubmit && links && links.length==0) && (<p className=' text-danger m-auto'>Nincsenek adatok a kért kategóriában!</p>)}
-
-    </div>
+    
    
     </div>
   )

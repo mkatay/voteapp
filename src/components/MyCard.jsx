@@ -49,10 +49,12 @@ export const MyCard = ({title,classmate,linkUrl,id,changed,setChanged}) => {
             </Button>
         </CardText>
       </CardBody>
-      <CardFooter ><div className="d-flex justify-content-between">
+      <CardFooter ><div className="d-flex justify-content-between results">
         <span>Votes:<b>{votes}</b></span>
         <span>Points:<b>{points}</b></span> 
-        <span>Average:<b>{votes && Math.floor(points/votes)}</b></span>
+        <span>Average:<b>{votes && (points/votes).toFixed(2)}</b></span>
+        <span>grade:<b className="text-info">{votes && points ? ((points*5/(votes*10)).toFixed(2)>5? 5 :
+          (points*5/(votes*10)).toFixed(2)):null }</b></span>
       </div></CardFooter>
     </Card>
     {open && <PointsForm open={open} setOpen={setOpen} id={id} title={title}/>}
