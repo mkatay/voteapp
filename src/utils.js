@@ -5,7 +5,7 @@ import {collection, addDoc,doc,deleteDoc,query,getDoc,arrayUnion,
 
 
   export const classes=['12A/3','12A/2','11A/1','11A/2']
-  export const projects=['Kajak-kenu','Ingyenes-tanfolyamok','Portfólió']
+  export const projects=['Kajak-kenu','Ingyenes-tanfolyamok','Portfólió','Utazási iroda']
   
 
 export const addLink =async (formData) => {
