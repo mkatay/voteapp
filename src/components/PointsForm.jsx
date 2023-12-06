@@ -18,6 +18,7 @@ const {user}=useContext(UserContext)
 const [points,setPoints]=useState(null)
 const [flag,setFlag]=useState(false)
 
+const imgSrc=title=='Utazási iroda' ? 'Utazasi_iroda' : title
 useEffect(() => {
   async function fetchData() {
     try {
@@ -54,7 +55,7 @@ console.log(title+"jpg");
         <DialogContent>
           <DialogContentText>
             <p>The perfect solution should looks like this:</p>
-            <img className="img-thumbnail" src={title+".jpg"} alt="minta" />
+            <img className="img-thumbnail" src={imgSrc+".jpg"} alt="minta" />
           </DialogContentText>
          {flag ? <p>Ezt már értékelted!</p> :  <PointsSlider setPoints={setPoints}/>}
         </DialogContent>
