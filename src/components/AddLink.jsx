@@ -4,12 +4,9 @@ import { Loader } from '../components/Loader';
 import { addLink } from '../utils';
 import { MyAlert } from '../components/MyAlert';
 import { useForm } from 'react-hook-form';
+import { classes } from '../utils';
+import { projects } from '../utils';
 
-
-
-const classes=['12A/3','12A/2','11A/1','11A/2']
-export const projects=['Kajak-kenu','Ingyenes-tanfolyamok','Portfólió','Utazási iroda']
-  
 
 export const AddLink = () => {
   const [loading, setLoading] = useState(false);
