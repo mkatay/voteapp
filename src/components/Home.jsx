@@ -1,21 +1,22 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {Form,Label,Row,Col,FormGroup} from 'reactstrap'
 import { Loader } from '../components/Loader';
-import { readLinks} from '../utils';
+import { readClasses, readLinks} from '../utils';
 import { MyAlert } from '../components/MyAlert';
 import { useForm } from 'react-hook-form';
 import {MyCard} from './MyCard';
 import { PointsProvider } from '../PointsContext';
-import {classes,projects} from '../utils'
+import {projects} from '../utils'
+import { useContext } from 'react';
+import { ClassContext } from '../ClassContext';
 
 
 export const Home = () => {
   const [links, setLinks] = useState(null);
   const [changed,setChanged]=useState(0)
   const [hasSubmit,setHasSubmit]=useState(false)
-
-
-const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onChange',});
+  const {classes}=useContext(ClassContext)
+  const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onChange',});
 
   const onSubmit =async (data, e) => {
     e.preventDefault()
@@ -59,7 +60,7 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
                   }
               )}>
                   <option value="0">select class</option>
-                  {classes.map(c=><option key={c} value={c}>{c}</option>)}
+                  {classes && classes.map(c=><option key={c} value={c}>{c}</option>)}
               </select>
               <p>{errors?.class?.message}</p>
           </FormGroup>

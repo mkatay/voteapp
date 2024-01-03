@@ -1,11 +1,13 @@
 import React,{useState} from 'react'
 import {Form,Label,Row,Col,FormGroup} from 'reactstrap'
 import { useForm } from 'react-hook-form';
-import {classes,projects, readProjectResults} from '../utils'
+import {projects, readProjectResults} from '../utils'
+import { useContext } from 'react';
+import { ClassContext } from '../ClassContext';
 
 
 export const MyForm = ({setResults,hContent}) => {
-
+  const {classes}=useContext(ClassContext)
   const [hasSubmit,setHasSubmit]=useState(false)
 
 
@@ -52,7 +54,7 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
                   }
               )}>
                   <option value="0">select class</option>
-                  {classes.map(c=><option key={c} value={c}>{c}</option>)}
+                  {classes && classes.map(c=><option key={c} value={c}>{c}</option>)}
               </select>
               <p>{errors?.class?.message}</p>
           </FormGroup>

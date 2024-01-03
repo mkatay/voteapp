@@ -4,14 +4,16 @@ import { Loader } from '../components/Loader';
 import { addLink } from '../utils';
 import { MyAlert } from '../components/MyAlert';
 import { useForm } from 'react-hook-form';
-import { classes } from '../utils';
 import { projects } from '../utils';
+import { useContext } from 'react';
+import { ClassContext } from '../ClassContext';
 
 
 export const AddLink = () => {
   const [loading, setLoading] = useState(false);
   const [uploaded,setUploaded]=useState(false)
   const [result,setResult]=useState(null)
+  const {classes}=useContext(ClassContext)
 const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onChange',});
 
 
@@ -66,7 +68,7 @@ const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode:
                   }
               )}>
                   <option value="0">select class</option>
-                  {classes.map(c=><option key={c} value={c}>{c}</option>)}
+                  {classes && classes.map(c=><option key={c} value={c}>{c}</option>)}
               </select>
               <p>{errors?.class?.message}</p>
           </FormGroup>

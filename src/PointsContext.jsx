@@ -7,11 +7,11 @@ export const PointsProvider = ({ children ,id}) => {
 const [points,setPoints]=useState(0)
 const [votes,setVotes]=useState(0)
 
+  useEffect(() => {
+    const unsubscribe =  readPoints(id,setPoints,setVotes)
+    return () => unsubscribe(); // Cleanup function to unsubscribe when the component unmounts
+  }, [id]);
 
-  useEffect(() =>{
-   readPoints(id,setPoints,setVotes)
-    
-  }, []);
     return (
     <PointsContext.Provider value={{ points,votes}}>
                                      

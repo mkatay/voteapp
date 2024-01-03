@@ -25,7 +25,7 @@ export const MyCard = ({title,classmate,linkUrl,id,changed,setChanged}) => {
     useEffect(() => {
       setChanged(changed+1)
       fetchData();
-    }, [user, id,flag]);
+    }, [user, id,points]);
 
     const handleClickOpen = () => {
         setOpen(true);

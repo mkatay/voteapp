@@ -10,9 +10,11 @@ import { Navbar } from "./components/Navbar";
 import { Eval } from "./components/Eval";
 import { Result } from "./components/Result";
 import { Home } from "./components/Home";
-
+import { adminMail } from "./firebaseConfig";
 import { UserContext } from "./UserContext";
 import { useContext } from "react";
+import { Admin } from "./components/admin/Admin";
+
 
 function App() {
   const { isAuth,user,setIsAuth } = useContext(UserContext);
@@ -30,6 +32,7 @@ function App() {
                 <Route path="/add" element={<AddLink />} />
                 <Route path="/eval" element={<Eval />} />
                 <Route path="/results" element={<Result />} />
+                <Route path="/admin" element={user?.email==adminMail ? <Admin /> : <Home/>} />
               </Routes>
             </>
           )}
