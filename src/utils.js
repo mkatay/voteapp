@@ -23,6 +23,7 @@ export const projects = [
   "Portfólió",
   "Utazási iroda",
   "Drums",
+  "BMI"
 ];
 
 export const addLink = async (formData) => {
