@@ -1,13 +1,13 @@
 import React,{useState} from 'react'
 import {Form,Label,Row,Col,FormGroup} from 'reactstrap'
 import { useForm } from 'react-hook-form';
-import {projects, readProjectResults} from '../utils'
+import {readProjectResults} from '../utils'
 import { useContext } from 'react';
 import { ClassContext } from '../ClassContext';
 
 
 export const MyForm = ({setResults,hContent}) => {
-  const {classes}=useContext(ClassContext)
+  const {classes,projects}=useContext(ClassContext)
   const [hasSubmit,setHasSubmit]=useState(false)
 
 

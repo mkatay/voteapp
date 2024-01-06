@@ -10,12 +10,18 @@ export const UserProvider = ({ children }) => {
 const [isAuth, setIsAuth] = useState(cookies.get("auth-token")); //true vagy false lesz
   const [user, setUser] = useState(null);
   const [msg,setMsg]=useState(null)
+  const [admin,setAdmin]=useState(false)
 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      console.log('user status changed:',user);
+      //console.log('userContect:',currentUser.email);
+      if(currentUser?.email=='kmagdi@kkando.hu')
+        setAdmin(true)
+      else
+        setAdmin(false)
+      //console.log('user status changed:',user);
       
     });
 
@@ -30,7 +36,7 @@ console.log(msg);
   }
   
     return (
-    <UserContext.Provider value={{ user,logoutUser,isAuth,setIsAuth}}>
+    <UserContext.Provider value={{ user,logoutUser,isAuth,setIsAuth,admin}}>
                                      
       {children}
     </UserContext.Provider>

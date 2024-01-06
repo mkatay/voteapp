@@ -1,12 +1,9 @@
 import React,{useState,useEffect} from 'react'
 import {Form,Label,Row,Col,FormGroup} from 'reactstrap'
-import { Loader } from '../components/Loader';
-import { readClasses, readLinks} from '../utils';
-import { MyAlert } from '../components/MyAlert';
+import {  readLinks} from '../utils';
 import { useForm } from 'react-hook-form';
 import {MyCard} from './MyCard';
 import { PointsProvider } from '../PointsContext';
-import {projects} from '../utils'
 import { useContext } from 'react';
 import { ClassContext } from '../ClassContext';
 
@@ -15,7 +12,7 @@ export const Home = () => {
   const [links, setLinks] = useState(null);
   const [changed,setChanged]=useState(0)
   const [hasSubmit,setHasSubmit]=useState(false)
-  const {classes}=useContext(ClassContext)
+  const {classes,projects}=useContext(ClassContext)
   const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onChange',});
 
   const onSubmit =async (data, e) => {
@@ -44,7 +41,7 @@ export const Home = () => {
                   }
               )}>
                   <option value="0">select project title...</option>
-                  {projects.map(c=><option key={c} value={c}>{c}</option>)}
+                  {projects && projects.map(c=><option key={c} value={c}>{c}</option>)}
               </select>
               <p>{errors?.title?.message}</p>
             </FormGroup>

@@ -1,18 +1,21 @@
 import React,{useState,useEffect} from "react";
 import {Card,CardText,CardBody,Button,CardFooter,CardHeader,CardTitle} from 'reactstrap'
-import { gitHubUserName } from "../utils";
+import { deleteProject, gitHubUserName } from "../utils";
 import { PointsForm } from "./PointsForm";
 import { useContext } from 'react';
 import { UserContext } from '../UserContext';
 import { check} from '../utils.js'
 import { PointsContext } from "../PointsContext";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 
 export const MyCard = ({title,classmate,linkUrl,id,changed,setChanged}) => {
     const [open, setOpen] = React.useState(false);
-    const {user}=useContext(UserContext)
+    const {user,admin}=useContext(UserContext)
     const [flag,setFlag]=useState(false)
     const {points,votes}=useContext(PointsContext)
+
+console.log('admin:',admin);
 
     const fetchData=async()=> {
       try {
@@ -30,16 +33,16 @@ export const MyCard = ({title,classmate,linkUrl,id,changed,setChanged}) => {
     const handleClickOpen = () => {
         setOpen(true);
       };
-    
-      const handleClose = () => {
-        setOpen(false);
-      };
+    const handleDeleteProject=()=>{
+      console.log(id);
+      deleteProject(id)
+    }
 
   return (
     <div className="mycard">
     <Card
       className="my-2" style={{ width: "18rem",  }} >
-      <CardHeader>{gitHubUserName(linkUrl)} - {classmate}</CardHeader>
+      <CardHeader>{gitHubUserName(linkUrl)} - {classmate} - {admin && <DeleteIcon onClick={handleDeleteProject} sx={{color:'red',cursor:'pointer'}}/>  }</CardHeader>
       <CardBody>
         <CardTitle tag="h5">{title}</CardTitle>
         <Button color="primary"><a href={linkUrl} target="__blank">View page</a> </Button>

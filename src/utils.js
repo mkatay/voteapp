@@ -16,15 +16,6 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 
-//export const classes = ["12A/3", "12A/2", "11A/1", "11A/2"];
-export const projects = [
-  "Kajak-kenu",
-  "Ingyenes-tanfolyamok",
-  "Portfólió",
-  "Utazási iroda",
-  "Drums",
-  "BMI"
-];
 
 export const addLink = async (formData) => {
   console.log(formData.linkUrl);
@@ -47,7 +38,12 @@ export const addLink = async (formData) => {
 };
 
 export const gitHubUserName = (url) => {
-  return url.split("/")[2].replace(".github.io", "");
+  try{
+    return url.split("/")[2].replace(".github.io", "");
+  }catch(err){
+    return 'invalid GitHub username!'
+  }
+  
 };
 
 export const readLinks = (classmate, title, setLinks) => {
@@ -94,10 +90,13 @@ export const readPoints = async (projectId, setPoints, setVotes) => {
   const docRef = doc(db, "links", projectId);
   const unsubscribe=onSnapshot(docRef, (docSnap) => {
     const arr = { ...docSnap.data() };
-    const newPoints = arr.rate.reduce((acc, obj) => (obj.points ? acc + obj.points : acc), 0 );
-    const newVotes = arr.rate.filter((obj) => obj.points && obj.points > 0).length;
-    setPoints(newPoints);
-    setVotes(newVotes);
+    if(arr?.rate){
+      const newPoints = arr.rate.reduce((acc, obj) => (obj.points ? acc + obj.points : acc), 0 );
+      const newVotes = arr.rate.filter((obj) => obj.points && obj.points > 0).length;
+      setPoints(newPoints);
+      setVotes(newVotes);
+    }
+    
     return unsubscribe
   });
 };
@@ -118,17 +117,29 @@ export const readProjectResults = (classmate, title, setResults) => {
   });
   return unsubscribe;
 };
-export const readClasses = (setClasses) => {
+//populate selects
+const readProjects = (setProjects) => {
+  const collectionRef = collection(db, "projects");
+  const q = query(collectionRef, orderBy('name', 'asc'))
+  onSnapshot(q, (snapshot) => {
+    setProjects(snapshot.docs.map(doc => doc.data().name));
+  });
+};
+export const readClasses = (setClasses,setProjects) => {
+  readProjects(setProjects)
   const collectionRef = collection(db, "classes");
   const q = query(collectionRef, orderBy('class', 'asc'))
-  const unsubscribe = onSnapshot(q, (snapshot) => {
+  onSnapshot(q, (snapshot) => {
     setClasses(snapshot.docs.map(doc => doc.data().class));
   });
-  return unsubscribe;
 };
 
+export const deleteProject=async (id)=>{
+  const docRef= doc(db, "links", id);
+  await deleteDoc(docRef)
 
-/////////////////////////////////////////////////dashboard:
+}
+/////////////////////////////////////////////////dashboard-admin:
 
 export const readClassRows = (setRows) => {
   const collectionRef = collection(db, "classes");
@@ -149,3 +160,22 @@ export const addClass = async (newItem)=> {
   const collectionRef = collection(db, "classes");
   await addDoc(collectionRef, newItem);
 };
+export const addProject = async (newItem)=> {
+  const collectionRef = collection(db, "projects");
+  await addDoc(collectionRef, newItem);
+};
+
+export const readProjectRows = (setRows) => {
+  const collectionRef = collection(db, "projects");
+  const q = query(collectionRef, orderBy('name', 'asc'))
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    setRows(snapshot.docs.map(doc => ({ name:doc.data().name,descr:doc.data().descr,id: doc.id })));
+  });
+  return unsubscribe;
+};
+export const deleteSelectedProject=async (selection)=>{
+  selection.map(async (id)=>{
+    const docRef = doc(db, "projects", id);
+    await deleteDoc(docRef)
+  })
+}
