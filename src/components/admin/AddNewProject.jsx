@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { Form, Row, Col } from "reactstrap";
 import { useForm } from "react-hook-form";
 import { addProject } from "../../utils";
+import {FileInput} from "./FileInput"
+import {uploadFile} from "../../uploadFile"
 
 export const AddNewProject = () => {
   //const [hasSubmit, setHasSubmit] = useState(false);
-
+  const [image,setImage]=useState(null)
   const {register, handleSubmit } = useForm({ mode: "onChange" });
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    addProject({...data,descr:null})
+    const photoUrl=await uploadFile(image)  
+    addProject({...data,descr:photoUrl})
     console.log(data);
     //setHasSubmit(true);
     e.target.reset(); // reset after form submit
@@ -25,6 +28,7 @@ export const AddNewProject = () => {
                     <input type="text" className="form-control"   {...register("name", { required: true })} />
                 </Col>
             </Row>
+            <FileInput  setImage={setImage}/>
             <Row>
             <Col className="d-flex justify-content-center">
                 <input type="submit" className="btn btn-primary" value="Add" />

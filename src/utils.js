@@ -46,7 +46,16 @@ export const gitHubUserName = (url) => {
   
 };
 
-export const readLinks = (classmate, title, setLinks) => {
+export const readLinks = (classmate, title, setLinks,setImgSrc) => {
+  //kell a kép elérhetősége:
+  const collRef = collection(db, "projects");
+  const qProject = query(collRef,  where("name", "==", title))
+  onSnapshot(qProject, (snapshot) => {
+    //console.log(snapshot.docs);
+    setImgSrc(snapshot.docs.map(doc => ({ imgSrc:doc.data().descr })));
+  });
+
+
   const collectionRef = collection(db, "links");
   const q = query(
     collectionRef,

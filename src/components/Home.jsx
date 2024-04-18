@@ -13,11 +13,12 @@ export const Home = () => {
   const [changed,setChanged]=useState(0)
   const [hasSubmit,setHasSubmit]=useState(false)
   const {classes,projects}=useContext(ClassContext)
+  const [imgSrc,setImgSrc]=useState(null)
   const { register, handleSubmit, reset, formState: { errors } } = useForm({ mode: 'onChange',});
 
   const onSubmit =async (data, e) => {
     e.preventDefault()
-    readLinks(data.classmate,data.title,setLinks)
+    readLinks(data.classmate,data.title,setLinks,setImgSrc)
     setHasSubmit(true)
     e.target.reset(); // reset after form submit
   };
@@ -75,7 +76,7 @@ export const Home = () => {
        {(hasSubmit && links && links.length>0) && links.map(obj=>
       <div key={obj.id}>
         <PointsProvider id={obj.id}>
-          <MyCard {...obj} setChanged={setChanged} changed={changed}/>
+          <MyCard {...obj} setChanged={setChanged} changed={changed} imgSrc={imgSrc}/>
         </PointsProvider>
       </div>
       )}

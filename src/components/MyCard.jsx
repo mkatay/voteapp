@@ -9,7 +9,7 @@ import { PointsContext } from "../PointsContext";
 import DeleteIcon from '@mui/icons-material/Delete';
 
 
-export const MyCard = ({title,classmate,linkUrl,id,changed,setChanged}) => {
+export const MyCard = ({title,classmate,linkUrl,id,changed,setChanged,imgSrc}) => {
     const [open, setOpen] = React.useState(false);
     const {user,admin}=useContext(UserContext)
     const [flag,setFlag]=useState(false)
@@ -60,7 +60,7 @@ console.log('admin:',admin);
           (points*5/(votes*10)).toFixed(2)):null }</b></span>
       </div></CardFooter>
     </Card>
-    {open && <PointsForm open={open} setOpen={setOpen} id={id} title={title}/>}
+    {open && <PointsForm open={open} setOpen={setOpen} id={id} title={title} imgSrc={imgSrc}/>}
     </div>
   );
 };
