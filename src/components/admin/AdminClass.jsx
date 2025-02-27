@@ -12,6 +12,7 @@ import { AddNewClass } from "./AddNewClass";
 const columns = [
   { field: "id", headerName: "Class Id", width: 250 ,  headerClassName: 'text-primary',},
   { field: "class", headerName: "Class Name", width: 150,headerClassName: 'text-primary' },
+  { field: "year", headerName: "Year", width: 150,headerClassName: 'text-primary' },
 ];
 
 export const AdminClass = () => {

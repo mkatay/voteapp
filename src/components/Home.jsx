@@ -23,7 +23,7 @@ export const Home = () => {
     e.target.reset(); // reset after form submit
   };
 
- console.log(changed);
+ console.log(classes);
   return (
     
     <div >
@@ -58,7 +58,7 @@ export const Home = () => {
                   }
               )}>
                   <option value="0">select class</option>
-                  {classes && classes.map(c=><option key={c} value={c}>{c}</option>)}
+                  {classes && classes.map(c=><option key={c.id} value={c.id}>{c.class}-{c.year}</option>)}
               </select>
               <p>{errors?.class?.message}</p>
           </FormGroup>

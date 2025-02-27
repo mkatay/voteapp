@@ -39,7 +39,9 @@ export const addLink = async (formData) => {
 
 export const gitHubUserName = (url) => {
   try{
-    return url.split("/")[2].replace(".github.io", "");
+    console.log(url.split("/"));
+    
+    return url.split("/")[3].replace(".github.io", "");
   }catch(err){
     return 'invalid GitHub username!'
   }
@@ -137,9 +139,9 @@ const readProjects = (setProjects) => {
 export const readClasses = (setClasses,setProjects) => {
   readProjects(setProjects)
   const collectionRef = collection(db, "classes");
-  const q = query(collectionRef, orderBy('class', 'asc'))
+  const q = query(collectionRef, orderBy('year', 'desc'))
   onSnapshot(q, (snapshot) => {
-    setClasses(snapshot.docs.map(doc => doc.data().class));
+    setClasses(snapshot.docs.map(doc=>({ ...doc.data(), id: doc.id })));
   });
 };
 
@@ -152,9 +154,9 @@ export const deleteProject=async (id)=>{
 
 export const readClassRows = (setRows) => {
   const collectionRef = collection(db, "classes");
-  const q = query(collectionRef, orderBy('class', 'asc'))
+  const q = query(collectionRef, orderBy('year', 'desc'))
   const unsubscribe = onSnapshot(q, (snapshot) => {
-    setRows(snapshot.docs.map(doc => ({ class:doc.data().class,id: doc.id })));
+    setRows(snapshot.docs.map(doc => ({ class:doc.data().class,year:doc.data().year,id: doc.id })));
   });
   return unsubscribe;
 };

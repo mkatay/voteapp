@@ -22,7 +22,12 @@ export const AddNewClass = () => {
         <Form onSubmit={handleSubmit(onSubmit)}  className="border rounded p-3 bg-light" >
             <Row >
                 <Col className="d-flex justify-content-center m-2">
-                    <input type="text" className="form-control"   {...register("class", { required: true })} />
+                    <input type="text" className="form-control" placeholder="class"  {...register("class", { required: true })} />
+                </Col>
+            </Row>
+            <Row >
+                <Col className="d-flex justify-content-center m-2">
+                    <input type="text" className="form-control" placeholder="year"   {...register("year", { required: true })} />
                 </Col>
             </Row>
             <Row>

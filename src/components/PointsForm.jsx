@@ -45,6 +45,13 @@ console.log(flag);
   }
 console.log('pont:',points);
 
+const handleOpenInNewTab = (event) => {
+ // event.preventDefault(); // Stop the default navigation
+
+  // Open the link in a new tab with desired features (optional)
+  window.open(event.target.src, '_blank', 'noopener,noreferrer');
+};
+
   return (
     <div>
      {/*} <Button variant="outlined" onClick={handleClickOpen}>
@@ -55,7 +62,7 @@ console.log('pont:',points);
         <DialogContent>
           <DialogContentText>
             <p>The perfect solution should looks like this:</p>
-            <img className="img-thumbnail" src={imgSrc[0].imgSrc} alt="minta" />
+            <img className="img-thumbnail" src={imgSrc[0].imgSrc} alt="minta"  onClick={handleOpenInNewTab} style={{cursor:"pointer"}}/>
           </DialogContentText>
          {flag ? <p>Ezt már értékelted!</p> :  <PointsSlider setPoints={setPoints}/>}
         </DialogContent>

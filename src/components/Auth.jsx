@@ -7,6 +7,13 @@ import { Button } from "reactstrap";
 
 const cookies = new Cookies(); //to set and get cookies from the browser
 
+const middleStyle={
+ position:"absolute",
+ top:"50%",
+ left:"50%",
+ transform: "translate(-50%, -50%)"
+}
+
 export const Auth = ({ setIsAuth }) => {
   const signInWithGoogle = async () => {
     try {
@@ -34,7 +41,7 @@ export const Auth = ({ setIsAuth }) => {
     };*/
 
   return (
-    <div className="auth bg-light">
+    <div className="auth bg-light " style={middleStyle}>
       <h6 className="mt-2">Sign in with Google to continue</h6>
       <Button color="primary" size="lg" onClick={signInWithGoogle}>
             <FaGoogle /> 

@@ -9,6 +9,7 @@ import { MyForm } from "./MyForm";
 
 export const Result = () => {
   const [results, setResults] = useState([]);
+  console.log(results);
   
   return (
     <div>
@@ -23,7 +24,7 @@ export const Result = () => {
           </ListSubheader>
         }
       >
-        {results.length > 0 &&
+        {results?.length > 0 &&
           results.map((obj) => <SingleResult key={obj.linkUrl} {...obj}/>)}
       </List>
     </div>
